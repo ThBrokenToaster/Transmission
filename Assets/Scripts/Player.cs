@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     bool right;
     bool onGround;
     bool onWall;
+    bool onWallBack;
     float groundCollisionRadius = .2f;
     public LayerMask ground;
     public Transform groundCheck;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour {
     public float lowJumpMultiplier = 2f;
     public float verticalSpeed;
     public float wallJump;
+    public float stickyForce;
 
 
 
@@ -78,7 +80,14 @@ public class Player : MonoBehaviour {
             playerRB.AddForce(new Vector2(0, jumpHeight));
         }
 
-        
+        if (onWallBack && right)
+        {
+            playerRB.AddForce(new Vector2(-1 * wallJump, 0));
+        }
+
+
+
+
         if (onWall && Input.GetButtonDown("Jump"))
         {
             onWall = false;
